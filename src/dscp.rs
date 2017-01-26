@@ -2,18 +2,23 @@ use std::io::Error;
 use std::mem::size_of_val;
 use std::os::unix::io::RawFd;
 use libc::{c_int, c_void, setsockopt, socklen_t, IPPROTO_IP};
-
 use Priority;
 
-#[cfg(target_os = "macos")]
-pub const IP_TOS: c_int = 3;
+const IP_TOS: c_int = 3;
+const IPTOS_DSCP_AF31: c_int = 0x68;
 
-pub fn set_priority(fd: RawFd, prio: Priority) -> Result<(), Error> {
+#[cfg(not(unix))]
+pub fn set_dscp_for_priority(fd: RawFd, prio: Priority) -> Result<(), Error> {
+    Ok(())
+}
+
+#[cfg(unix)]
+pub fn set_dscp_for_priority(fd: RawFd, prio: Priority) -> Result<(), Error> {
     let tos: c_int = match prio {
-        Priority::Interactive => 0x10,
+        Priority::Interactive => IPTOS_DSCP_AF31,
         Priority::Default => 0x0,
-        Priority::InteractiveBulk => 0x18,
-        Priority::Bulk => 0xc,
+        Priority::InteractiveBulk => 0x0,
+        Priority::Bulk => 0x0,
     };
     match unsafe {
         setsockopt(fd as c_int,

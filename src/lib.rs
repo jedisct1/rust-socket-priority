@@ -3,6 +3,7 @@
 
 extern crate libc;
 
+mod dscp;
 mod priority;
 pub use priority::Priority;
 
@@ -11,12 +12,7 @@ pub use socket_priority_linux::*;
 #[cfg(target_os = "linux")]
 mod socket_priority_linux;
 
-#[cfg(any(target_os = "macos", target_os = "openbsd"))]
-pub use socket_priority_tos::*;
-#[cfg(any(target_os = "macos", target_os = "openbsd"))]
-mod socket_priority_tos;
-
-#[cfg(not(any(target_os = "linux", target_os = "macos")))]
+#[cfg(not(target_os = "linux"))]
 pub use socket_priority_dummy::*;
-#[cfg(not(any(target_os = "linux", target_os = "macos")))]
+#[cfg(not(target_os = "linux"))]
 mod socket_priority_dummy;
