@@ -11,7 +11,12 @@ pub use socket_priority_linux::*;
 #[cfg(target_os = "linux")]
 mod socket_priority_linux;
 
-#[cfg(not(target_os = "linux"))]
+#[cfg(any(target_os = "macos", target_os = "openbsd"))]
+pub use socket_priority_tos::*;
+#[cfg(any(target_os = "macos", target_os = "openbsd"))]
+mod socket_priority_tos;
+
+#[cfg(not(any(target_os = "linux", target_os = "macos")))]
 pub use socket_priority_dummy::*;
-#[cfg(not(target_os = "linux"))]
+#[cfg(not(any(target_os = "linux", target_os = "macos")))]
 mod socket_priority_dummy;
