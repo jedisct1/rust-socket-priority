@@ -29,12 +29,12 @@ pub fn set_dscp_for_priority(fd: RawFd, prio: Priority) -> Result<(), Error> {
         Priority::Bulk => 0x0,
     };
     match unsafe {
-        setsockopt(fd as c_int,
-                   IPPROTO_IP,
-                   IP_TOS,
-                   &tos as *const _ as *const c_void,
-                   size_of_val(&tos) as socklen_t)
-    } {
+              setsockopt(fd as c_int,
+                         IPPROTO_IP,
+                         IP_TOS,
+                         &tos as *const _ as *const c_void,
+                         size_of_val(&tos) as socklen_t)
+          } {
         0 => Ok(()),
         _ => Err(Error::last_os_error()),
     }
