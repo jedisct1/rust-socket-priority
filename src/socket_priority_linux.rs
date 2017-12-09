@@ -16,12 +16,14 @@ pub fn set_priority(fd: RawFd, prio: Priority) -> Result<(), Error> {
         Priority::Bulk => 2,
     };
     match unsafe {
-              setsockopt(fd as c_int,
-                         SOL_SOCKET,
-                         SO_PRIORITY,
-                         &linux_prio as *const _ as *const c_void,
-                         size_of_val(&linux_prio) as socklen_t)
-          } {
+        setsockopt(
+            fd as c_int,
+            SOL_SOCKET,
+            SO_PRIORITY,
+            &linux_prio as *const _ as *const c_void,
+            size_of_val(&linux_prio) as socklen_t,
+        )
+    } {
         0 => Ok(()),
         _ => Err(Error::last_os_error()),
     }?;
