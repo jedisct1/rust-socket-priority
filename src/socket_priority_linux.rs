@@ -1,8 +1,8 @@
 use dscp::set_dscp_for_priority;
+use libc::{c_int, c_void, setsockopt, socklen_t, SOL_SOCKET};
 use std::io::Error;
 use std::mem::size_of_val;
 use std::os::unix::io::RawFd;
-use libc::{c_int, c_void, setsockopt, socklen_t, SOL_SOCKET};
 
 use Priority;
 
