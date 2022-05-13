@@ -1,7 +1,9 @@
-use crate::Priority;
-use libc::c_int;
 use std::io::Error;
 use std::os::unix::io::RawFd;
+
+use libc::c_int;
+
+use crate::Priority;
 
 #[cfg(target_os = "linux")]
 const IP_TOS: c_int = 1;
@@ -37,8 +39,9 @@ pub fn set_dscp_for_priority(fd: RawFd, prio: Priority) -> Result<(), Error> {
     target_os = "macos"
 ))]
 pub fn set_dscp_for_priority(fd: RawFd, prio: Priority) -> Result<(), Error> {
-    use libc::{c_void, setsockopt, socklen_t, IPPROTO_IP};
     use std::mem::size_of_val;
+
+    use libc::{c_void, setsockopt, socklen_t, IPPROTO_IP};
 
     const IPTOS_DSCP_AF31: c_int = 0x68;
 

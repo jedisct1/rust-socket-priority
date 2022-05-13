@@ -3,10 +3,10 @@
 
 mod dscp;
 mod priority;
-pub use crate::priority::Priority;
-
 #[cfg(target_os = "linux")]
 pub use socket_priority_linux::*;
+
+pub use crate::priority::Priority;
 #[cfg(target_os = "linux")]
 mod socket_priority_linux;
 
