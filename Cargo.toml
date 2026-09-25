@@ -1,9 +1,9 @@
 [package]
-keywords = ["socket", "priority", "dscp", "qos", "network"]
 name = "socket-priority"
-version = "0.1.5"
+version = "0.1.6"
 authors = ["Frank Denis <github@pureftpd.org>"]
 description = "Set socket traffic priority and DSCP markings for network quality of service, with Linux SO_PRIORITY support."
+keywords = ["socket", "priority", "dscp", "qos", "network"]
 license = "ISC"
 edition = "2018"
 homepage = "https://github.com/jedisct1/rust-socket-priority"
