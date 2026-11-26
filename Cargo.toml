@@ -6,7 +6,6 @@ description = "Set socket traffic priority and DSCP markings for network quality
 keywords = ["socket", "priority", "dscp", "qos", "network"]
 license = "ISC"
 edition = "2018"
-homepage = "https://github.com/jedisct1/rust-socket-priority"
 repository = "https://github.com/jedisct1/rust-socket-priority"
 categories = ["os::unix-apis"]
 
